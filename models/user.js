@@ -10,6 +10,10 @@ let userSchema = mongoose.Schema({
       type: String,
       require: true
     },
+    tokenSecret: {
+      type: String,
+      require: true
+    },
     username: {
       type: String,
       require: true
