@@ -20,8 +20,6 @@ module.exports = () => {
       if (err) 
         return callback(err)
       if (user && user.length) {
-        console.log("FIND USER")
-        console.log(user[0])
         return callback(null, user[0])
       }
       else {
@@ -29,6 +27,7 @@ module.exports = () => {
         let newUser = new User()
         newUser.twitter.id          = profile.id
         newUser.twitter.token       = accessToken
+        newUser.twitter.tokenSecret = refreshToken 
         newUser.twitter.username    = profile.username
         newUser.twitter.displayName = profile.displayName
         newUser.twitter.photos      = profile.photos;
