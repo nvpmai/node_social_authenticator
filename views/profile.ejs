@@ -32,7 +32,7 @@
             <div class="well">
                 <h3><span class="fa fa-laptop"></span> Local</h3>
 
-                <% if (user.local.email) { %>
+                <% if (user.local && user.local.email) { %>
                     <p>
                         <strong>id</strong>: <%= user._id %><br>
                         <strong>email</strong>: <%= user.local.email %><br>
@@ -76,7 +76,7 @@
                 <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
 
                 <!-- check if the user has this token (is the user authenticated with this social account) -->
-                <% if (user.facebook.token) { %>
+                <% if (user.facebook && user.facebook.token) { %>
                     <p>
                         <strong>id</strong>: <%= user.facebook.id %><br>
                         <strong>token</strong>: <%= user.facebook.token %><br>
@@ -97,7 +97,7 @@
             <div class="well">
                 <h3 class="text-danger"><span class="fa fa-google-plus"></span> Google+</h3>
 
-                <% if (user.google.token) { %>
+                <% if (user.google && user.google.token) { %>
                     <p>
                         <strong>id</strong>: <%= user.google.id %><br>
                         <strong>token</strong>: <%= user.google.token %><br>
