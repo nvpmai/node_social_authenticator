@@ -1,12 +1,25 @@
+const mongoose = require('mongoose')
+
 let userSchema = mongoose.Schema({
   twitter: {
-    email: {
-      type: string,
-      required: true
+    id: {
+      type: String,
+      require: true
     },
-    password: {
-      type: string,
-      required: true
-    }
+    token: {
+      type: String,
+      require: true
+    },
+    username: {
+      type: String,
+      require: true
+    },
+    displayName: {
+      type: String,
+      require: true
+    },
+    photos: []
   }
 })
+
+module.exports = mongoose.model('User', userSchema)
