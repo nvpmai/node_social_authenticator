@@ -21,13 +21,14 @@ module.exports = () => {
         return callback(err)
       }
       if (user && user.length) {
-        user[0].twitter.token = accessToken
-        user[0].twitter.tokenSecret = refreshToken
-        user[0].save((err, data) => {
-          if (err)
-            console.log(err.message)
-        })
-        console.log("PRINT token" + user[0].twitter.token)
+        if (user[0].twitter.token !== accessToken) {
+          user[0].twitter.token = accessToken
+          user[0].twitter.tokenSecret = refreshToken
+          user[0].save((err, data) => {
+            if (err)
+              console.log(err.message)
+          })
+        }
         return callback(null, user[0])
       }
       else {
