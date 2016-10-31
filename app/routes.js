@@ -3,6 +3,7 @@ const Twitter = require('twitter')
 const twitter = require('twitter')
 const auth = require('../config/auth')
 const then = require('express-then')
+const promise = require('songbird')
 const request = require('request')
 const networks = {
   twitter: {
@@ -50,7 +51,7 @@ module.exports = (app) => {
     tweets = tweets.map(tweet => {
       return {
         id: tweet.id,
-        image: tweet.user.profile_image.url,
+        image: tweet.user.profile_image && tweet.user.profile_image.url,
         text: tweet.text,
         name: tweet.user.name,
         username: '@' + tweet.user.screen_name,
