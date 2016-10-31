@@ -17,13 +17,20 @@ module.exports = () => {
   passport.use(new TwitterStrategy((auth.twitter), 
   (accessToken, refreshToken, profile, callback) => {
     User.find({ 'twitter.id' : profile.id }, function (err, user) {
-      if (err) 
+      if (err) {
         return callback(err)
+      }
       if (user && user.length) {
+        user[0].twitter.token = accessToken
+        user[0].twitter.tokenSecret = refreshToken
+        user[0].save((err, data) => {
+          if (err)
+            console.log(err.message)
+        })
+        console.log("PRINT token" + user[0].twitter.token)
         return callback(null, user[0])
       }
       else {
-        console.log("NOT FIND USER")
         let newUser = new User()
         newUser.twitter.id          = profile.id
         newUser.twitter.token       = accessToken

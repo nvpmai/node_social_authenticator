@@ -2,7 +2,7 @@
   "name": "social-authenticator",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node -- -- index.js"
+    "start": "nodemon --exec babel-node index.js"
   },
   "dependencies": {
     "body-parser": "^1.12.3",
@@ -18,15 +18,24 @@
     "mongoose": "^4.0.3",
     "morgan": "^1.0.0",
     "nodeifyit": "^1.0.1",
+    "oauth": "^0.9.14",
     "passport": "^0.2.1",
     "passport-facebook": "^2.0.0",
     "passport-google-oauth": "^0.2.0",
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.3",
     "promise": "^7.1.1",
+    "request": "^2.76.0",
     "require-dir": "^0.3.1",
     "songbird": "^1.0.1",
     "trycatch": "^1.5.21",
     "twitter": "^1.4.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.0.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.7.0",
+    "eslint-config-noderiety": "^1.1.1",
+    "mocha": "^3.0.2"
   }
 }
