@@ -58,7 +58,8 @@ module.exports = (app) => {
         username: '@' + tweet.user.screen_name,
         liked: tweet.favorited,
         network: "Twitter",
-        created_at: tweet.created_at
+        created_at: tweet.created_at,
+        in_reply_to_status_id: tweet.in_reply_to_status_id
       }
     })
     res.render('timeline.ejs', {
@@ -94,7 +95,6 @@ module.exports = (app) => {
   app.post('/like/:id', isLoggedIn, then(async (req, res) => {
     const twitterClient = getTwitterClient(req)
     const id = req.params.id
-    console.log(id)
     await twitterClient.promise.post('favorites/create', { id }, (err, data) => {
       if (err)
         console.log(err)
@@ -117,6 +117,42 @@ module.exports = (app) => {
     res.render('share.ejs', {
       post: post
     })
+  }))
+
+  app.post('/share/:id', isLoggedIn, then(async (req, res) => {
+    const twitterClient = getTwitterClient(req)
+    const id = req.params.id
+    await twitterClient.promise.post('statuses/retweet', { id })
+    res.redirect('/timeline')
+  }))
+
+  app.get('/reply/:id', isLoggedIn, then(async (req, res) => {
+    const twitterClient = getTwitterClient(req)
+    const id = req.params.id
+    const post = await twitterClient.promise.get('statuses/show', { id }) 
+    res.render('reply.ejs', {
+      post: post
+    })
+  }))
+
+  app.post('/reply/:id', isLoggedIn, then(async (req, res) => {
+    const twitterClient = getTwitterClient(req)
+    const status = req.body.reply
+    const in_reply_to_status_id = req.params.id
+    if (status && status.length > 140) {
+      req.flash('error', 'Reply is over 140 characters')
+      res.redirect('back')
+    } else if (!status) {
+      req.flash('error', 'Reply cannot be empty')
+      res.redirect('back')
+    } else {
+      console.log(in_reply_to_status_id)
+      await twitterClient.promise.post('statuses/update', { status: status, in_reply_to_status_id: in_reply_to_status_id }, (err, data) => {
+        if (err)
+          console.log(err)
+        res.redirect('/timeline')
+      })
+    }
   }))
 
   app.get('/auth/twitter', passport.authenticate('twitter'))
