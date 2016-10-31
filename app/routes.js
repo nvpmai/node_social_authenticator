@@ -110,6 +110,15 @@ module.exports = (app) => {
     })
   }))
 
+  app.get('/share/:id', isLoggedIn, then(async (req, res) => {
+    const twitterClient = getTwitterClient(req)
+    const id = req.params.id
+    const post = await twitterClient.promise.get('statuses/show', { id }) 
+    res.render('share.ejs', {
+      post: post
+    })
+  }))
+
   app.get('/auth/twitter', passport.authenticate('twitter'))
 
   app.get('/auth/twitter/callback', 
