@@ -14,7 +14,7 @@ const DB = require('./config/database')
 const config = requireDir('./config', { recurse: true })
 const app = express(), port = PORT
 
-app.passport = require('./app/middlewares/passport')()
+app.passport = require('./app/middlewares/twitterPassport')()
 app.config = {
   auth: config.auth, 
   database: config.database[NODE_ENV]
@@ -44,6 +44,6 @@ app.use(app.passport.session())
 app.use(flash())
 
 // configure routes
-require('./app/routes')(app)
+require('./app/twitterRoutes')(app)
 
 app.listen(PORT, () => console.log(`Listening @ http://localhost:${port}`))
