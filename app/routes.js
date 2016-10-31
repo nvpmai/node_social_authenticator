@@ -44,7 +44,7 @@ module.exports = (app) => {
     })
   })
 
-  app.get('/timeline', isLoggedIn, async (req, res) => {
+  app.get('/timeline', isLoggedIn, then(async function (req, res) {
     const twitterClient = getTwitterClient(req)
     let tweets = await twitterClient.promise.get('statuses/home_timeline')
     tweets = tweets.map(tweet => {
@@ -61,7 +61,7 @@ module.exports = (app) => {
     res.render('timeline.ejs', {
       posts: tweets
     })
-  })
+  }))
 
   app.get('/auth/twitter', passport.authenticate('twitter'))
 
