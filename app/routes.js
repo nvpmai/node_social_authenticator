@@ -48,16 +48,17 @@ module.exports = (app) => {
 
   app.get('/timeline', isLoggedIn, then(async (req, res) => {
     const twitterClient = getTwitterClient(req)
-    let tweets = await twitterClient.promise.get('statuses/home_timeline')
+    let tweets = await twitterClient.promise.get('statuses/home_timeline', { count: 20 })
     tweets = tweets.map(tweet => {
       return {
         id: tweet.id_str,
-        image: tweet.user.profile_image && tweet.user.profile_image.url,
+        image: tweet.user.profile_image_url,
         text: tweet.text,
         name: tweet.user.name,
         username: '@' + tweet.user.screen_name,
         liked: tweet.favorited,
-        network: networks.twitter
+        network: "Twitter",
+        created_at: tweet.created_at
       }
     })
     res.render('timeline.ejs', {

@@ -38,7 +38,7 @@ module.exports = () => {
         newUser.twitter.tokenSecret = refreshToken 
         newUser.twitter.username    = profile.username
         newUser.twitter.displayName = profile.displayName
-        newUser.twitter.photos      = profile.photos;
+        newUser.twitter.photos      = profile.photos[0] && profile.photos[0].value;
 
         newUser.save(function(err) {
           if (err)

@@ -9,7 +9,7 @@ Time spent: `<Number of hours spent>`
 #### Required
 
 - [x] User can sign in and connect to Twitter using `passport`.
-- [ ] User can view the 20 latest entries on an aggregated timeline.
+- [x] User can view the 20 latest entries on an aggregated timeline.
 - [ ] Timeline entries include user profile picture, username, content, origin social network identifier and timestamp.
 - [ ] In the timeline, user can like and unlike posts.
 - [ ] User can click share in the timeline, and share with a custom message on a separate page.

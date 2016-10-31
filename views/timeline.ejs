@@ -32,19 +32,20 @@
             </div>
             <div class="col-lg-9">
                 <div class="row">
-                    <p>
-                        <strong><%= post.name %></strong> <%= post.username %><br>
-                        <%- post.text %>
-                    </p>
+                  <p>
+                    <strong><%= post.name %></strong> <%= post.username %><br>
+                    <%- post.text %>
+                  </p>
                 </div>
                 <div class="row _icons">
                     <i class="fa <%= post.liked ? "fa-thumbs-up" : "fa-thumbs-o-up" %> fa-2x _like" name="like<%= post.id %>"></i> 
                     <a href="/reply/<%= post.id %>" class="fa fa-reply fa-2x"></a>
                     <a href="/share/<%= post.id %>" class="fa fa-share-square-o fa-2x"></a>
                 </div>
+                <div>Created at: <%= post.created_at %></div>
             </div>
             <div class="col-xs-2">
-                <span class="btn <%= post.network.class %>"><span class="fa fa-<%= post.network.icon %>"></span> <%= post.network.name %></a>
+                <span class="btn <%= post.network.class %>"><span class="fa fa-<%= post.network.icon %>"></span> <%= post.network %></a>
             </div>
         </div>
     <% } %>
