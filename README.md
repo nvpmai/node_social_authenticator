@@ -1,8 +1,8 @@
 ## Social Feed
 
-This is a aggregated Social Feed app for consuming Twitter and Facebook in a single timeline.
+This is a aggregated Social Feed app for consuming Twitter
 
-Time spent: `<Number of hours spent>`
+Time spent: 25 hours
 
 ### Features
 
@@ -32,4 +32,4 @@ Time spent: `<Number of hours spent>`
 
 ### Walkthrough
 
-![Video Walkthrough](...)
+![Video Walkthrough](https://github.com/nvpmai95/node_social_authenticator/blob/master/gif/week3_capture.gif)
