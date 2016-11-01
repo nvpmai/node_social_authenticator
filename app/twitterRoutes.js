@@ -120,10 +120,29 @@ module.exports = (app) => {
   }))
 
   app.post('/share/:id', isLoggedIn, then(async (req, res) => {
-    const twitterClient = getTwitterClient(req)
+    const twitterClientPromise = getTwitterClient(req)
+    const twitterClient = await twitterClientPromise
     const id = req.params.id
-    await twitterClient.promise.post('statuses/retweet', { id })
-    res.redirect('/timeline')
+    let status = req.body.reply
+    const in_reply_to_status_id = req.params.id
+
+    if (status && status.length > 140) {
+      req.flash('error', 'Comment is over 140 characters')
+      res.redirect('back')
+    } else if (!status) {
+      twitterClient.promise.post('statuses/retweet', { id }, (err) => {
+        if (err)
+          console.log(err)
+        res.redirect('/timeline')
+      })
+    } else {
+      status = status + " " + req.body.url
+      twitterClient.promise.post('statuses/retweet', { id: id, status: status, in_reply_to_status_id: in_reply_to_status_id }, (err) => {
+        if (err)
+          console.log(err)
+        res.redirect('/timeline')
+      })
+    }
   }))
 
   app.get('/reply/:id', isLoggedIn, then(async (req, res) => {
