@@ -36,6 +36,20 @@
             <%- post.text %>
           </p>
         </div>
+        <div class="row">
+          <% for(var reply,i=0; reply=replies[i]; i++) {%>
+            <div class="row well">
+                <div class="col-lg-9">
+                    <div class="row">
+                      <p>
+                        <strong><%= reply.user.name %></strong>
+                        <%- reply.text %>
+                      </p>
+                    </div>
+                </div>
+            </div>
+          <% } %>
+        </div>
       </div>
     </div>
 

@@ -130,14 +130,19 @@ module.exports = (app) => {
     const twitterClient = getTwitterClient(req)
     const id = req.params.id
     const post = await twitterClient.promise.get('statuses/show', { id }) 
+    const replies = await twitterClient.promise.get('search/tweets', { in_reply_to_status_id: id }, (err) => {
+      if (err) 
+        console.log(err.message)
+    })
     res.render('reply.ejs', {
-      post: post
+      post: post,
+      replies: replies
     })
   }))
 
   app.post('/reply/:id', isLoggedIn, then(async (req, res) => {
     const twitterClient = getTwitterClient(req)
-    const status = req.body.reply
+    let status = req.body.reply
     const in_reply_to_status_id = req.params.id
     if (status && status.length > 140) {
       req.flash('error', 'Reply is over 140 characters')
@@ -146,7 +151,7 @@ module.exports = (app) => {
       req.flash('error', 'Reply cannot be empty')
       res.redirect('back')
     } else {
-      console.log(in_reply_to_status_id)
+      status = status + " " + req.body.url
       await twitterClient.promise.post('statuses/update', { status: status, in_reply_to_status_id: in_reply_to_status_id }, (err, data) => {
         if (err)
           console.log(err)
