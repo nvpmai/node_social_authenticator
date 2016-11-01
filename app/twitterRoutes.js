@@ -130,9 +130,9 @@ module.exports = (app) => {
     const twitterClient = getTwitterClient(req)
     const id = req.params.id
     const post = await twitterClient.promise.get('statuses/show', { id }) 
-    const replies = await twitterClient.promise.get('search/tweets', { in_reply_to_status_id: id }, (err) => {
+    const replies = twitterClient.promise.get('search/tweets', { in_reply_to_status_id: id }, (err) => {
       if (err) 
-        console.log(err.message)
+        console.log(err)
     })
     res.render('reply.ejs', {
       post: post,
